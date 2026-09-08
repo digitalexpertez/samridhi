@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samriddhi Real Estate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        /* --- Color Palette & Theme Variables --- */
+        :root {
+            --dark-wood-bg: #130f0d;       
+            --card-bg: #1c1714;            
+            --gold-primary: #d4af37;       
+            --text-light: #f8f9fa;
+            --text-muted: #a4968d;
+            --bezier-fast: cubic-bezier(0.25, 1, 0.5, 1);
+
+            /* Light high-contrast pop-up scheme */
+            --pop-bg: #fdfbf7;             
+            --pop-text-main: #2b2521;      
+            --pop-text-muted: #6e655f;     
+            --pop-border-gold: #c5a028;    
+        }
+
+        body {
+            background-color: var(--dark-wood-bg);
+            color: var(--text-light);
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Strict Single-Line Horizontal Navbar --- */
+        .navbar-custom {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+            padding: 16px 0;
+            background-color: rgba(19, 15, 13, 0.92);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: padding 0.3s var(--bezier-fast), background-color 0.3s var(--bezier-fast);
+        }
+        
+        .navbar-custom.scrolled {
+            padding: 10px 0;
+            background-color: rgba(19, 15, 13, 0.98);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: nowrap !important; 
+        }
+
+        .navbar-brand-custom {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .nav-links-horizontal {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 4px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .nav-link-item {
+            color: rgba(248, 249, 250, 0.8) !important;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            padding: 6px 12px;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.25s var(--bezier-fast);
+        }
+
+        .nav-link-item::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 12px;
+            background-color: var(--gold-primary);
+            transition: width 0.25s var(--bezier-fast);
+        }
+
+        .nav-link-item:hover::after, .nav-link-item.active::after {
+            width: calc(100% - 24px);
+        }
+
+        .nav-link-item:hover, .nav-link-item.active {
+            color: var(--gold-primary) !important;
+        }
+
+        .nav-actions {
+            flex-shrink: 0;
+        }
+
+        /* --- Buttons --- */
+        .btn-gold {
+            background-color: var(--gold-primary);
+            color: #130f0d;
+            font-weight: 600;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border: 1px solid var(--gold-primary);
+            border-radius: 0px; 
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.25s var(--bezier-fast);
+            cursor: pointer;
+        }
+
+        .btn-gold:hover {
+            background-color: transparent;
+            color: var(--gold-primary);
+            box-shadow: 0 6px 15px rgba(214, 175, 55, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline-gold {
+            background-color: transparent;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 12px 26px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.25s var(--bezier-fast);
+        }
+
+        .btn-outline-gold:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+            transform: translateY(-1px);
+        }
+
+        /* --- Premium Responsive Hero Section --- */
+        .hero-section {
+            min-height: 100vh;
+            padding: 140px 0 60px 0;
+            background: radial-gradient(circle at 10% 20%, rgba(28, 23, 20, 0.4) 0%, rgba(19, 15, 13, 1) 90%);
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-tagline {
+            color: var(--gold-primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 4.5vw, 3.8rem); 
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--text-light);
+        }
+
+        .hero-title span {
+            color: var(--gold-primary);
+        }
+
+        .hero-desc {
+            color: var(--text-muted);
+            font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+            line-height: 1.7;
+            max-width: 520px;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            padding: 0;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 4 / 3;
+            max-height: 540px;
+            overflow: hidden;
+            border-radius: 4px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill; 
+            display: block;
+        }
+
+        /* --- Fixed, Blurred Overlapping Modal Windows --- */
+        .modal {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1055;
+            display: none;
+        }
+
+        .modal-backdrop {
+            background-color: rgba(19, 15, 13, 0.7) !important;
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
+        }
+
+        .modal-dialog-custom {
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            min-height: calc(100% - 3.5rem);
+        }
+
+        .modal-content-custom {
+            background-color: var(--pop-bg);
+            border: 1px solid var(--pop-border-gold);
+            border-radius: 16px; 
+            color: var(--pop-text-main);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-height: 85vh; 
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .modal-header-custom {
+            border-bottom: 1px solid rgba(197, 160, 40, 0.15);
+            padding: 20px 24px;
+            flex-shrink: 0;
+        }
+
+        .modal-title-custom {
+            color: var(--pop-border-gold);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 1.05rem;
+        }
+
+        .btn-close-custom {
+            color: var(--pop-text-muted);
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+            padding: 0;
+        }
+
+        .btn-close-custom:hover {
+            color: var(--pop-border-gold);
+            transform: scale(1.1);
+        }
+
+        .modal-body-custom {
+            padding: 24px;
+            line-height: 1.6;
+            font-size: 0.92rem;
+            overflow-y: auto; 
+        }
+
+        .modal-body-custom::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-body-custom::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 10px;
+        }
+        .modal-body-custom::-webkit-scrollbar-thumb {
+            background: rgba(197, 160, 40, 0.3);
+            border-radius: 10px;
+        }
+
+        .enquire-item {
+            margin-bottom: 16px;
+        }
+        .enquire-item:last-child {
+            margin-bottom: 0;
+        }
+        .enquire-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: var(--pop-border-gold);
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        .enquire-value {
+            font-size: 0.92rem;
+            color: var(--pop-text-main);
+            font-weight: 500;
+        }
+        .enquire-value a {
+            color: var(--pop-text-main);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .enquire-value a:hover {
+            color: var(--pop-border-gold);
+        }
+
+        /* Responsive Safe Map Card Frame */
+        .map-wrapper {
+            margin-top: 12px;
+            width: 100%;
+            max-height: 180px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(197, 160, 40, 0.2);
+        }
+        .map-wrapper iframe {
+            width: 100%;
+            height: 180px;
+            display: block;
+        }
+
+        /* --- Premium Native Horizontal Scrollbar Slider --- */
+        .section-title {
+            color: var(--gold-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+        }
+
+        .horizontal-slider {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 25px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .horizontal-slider::-webkit-scrollbar {
+            height: 6px;
+        }
+        .horizontal-slider::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .horizontal-slider::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+        }
+
+        .project-card {
+            flex: 0 0 auto; 
+            width: min(320px, 85vw);    
+            margin-right: 24px;
+            background-color: var(--card-bg);
+            border: 1px solid rgba(212, 175, 55, 0.08);
+            transition: transform 0.3s var(--bezier-fast), border-color 0.3s var(--bezier-fast);
+        }
+
+        .project-card:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-4px);
+        }
+
+        .card-img-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            display: block;
+        }
+
+        .project-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--gold-primary);
+            color: #130f0d;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .project-body {
+            padding: 20px;
+        }
+
+        .project-title {
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .project-title:hover {
+            color: var(--gold-primary);
+        }
+
+        .spec-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+        }
+
+        .spec-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        /* --- ADVANCED RESPONSIVE MEDIA BLUEPRINTS --- */
+        @media (max-width: 991.98px) {
+            .hero-section {
+                padding-top: 130px;
+                text-align: center;
+            }
+            .hero-desc {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-image-wrapper {
+                margin-top: 40px;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 600px;
+            }
+            .hero-desc[style*="padding-left"] {
+                padding-left: 0 !important;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .navbar-custom {
+                padding: 10px 0;
+            }
+            .nav-link-item {
+                padding: 4px 6px !important;
+                font-size: 0.78rem;
+            }
+            .btn-gold {
+                padding: 8px 14px;
+                font-size: 0.72rem;
+            }
+            .navbar-brand-custom img {
+                width: 45px !important;
+                height: 45px !important;
+            }
+            .hero-image-wrapper {
+                max-width: 100%;
+            }
+            .project-card {
+                margin-right: 16px;
+            }
+            .modal-dialog-custom {
+                max-width: 92%;
+                margin: 10px auto;
+            }
+            .section-title {
+                font-size: 1.4rem;
+                margin-bottom: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links-horizontal {
+                gap: 0px;
+            }
+            .nav-link-item {
+                padding: 4px 4px !important;
+                font-size: 0.72rem;
+            }
+            .hero-title {
+                font-size: 1.75rem;
+            }
+            .hero-desc[style*="padding-left"] {
+                font-size: 0.78rem !important;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+            }
+            .hero-desc[style*="padding-left"] span {
+                padding-left: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar-custom">
+        <div class="container nav-container">
+            <a class="navbar-brand-custom" href="#">
+                <div class="brand-text-box">
+                   <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlEr0fyQK5sTwQFWkcZkYhhnJ1SesC66zJgeTBiLHl5EhuEmYoONDH0hhYpU0jnnHGleqKL3yP7nTJDyVJt7QW1DxtNW47L6U8wmPwmEz8lWO5Uwy53NFSQgcFl4dT-WVBq4_pmyHlXoXcr=s1360-w1360-h1020-rw" style="width: 60px; height: 60px;" alt="Logo" data-google-photo="logo">
+                </div>
+            </a>
+            
+            <ul class="nav-links-horizontal">
+                <li><a class="nav-link-item " href="#">Home</a></li>
+                <li><a class="nav-link-item" href="#completed-projects">Projects</a></li>
+                <li><a class="nav-link-item" href="file:///D:/samriddhi/about.html">About</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="btn btn-gold" data-bs-toggle="modal" data-bs-target="#enquireModal">CONTACT</button>
+            </div>
+        </div>
+    </div>
+
+    <header class="hero-section">
+        <div class="container">
+            <div class="row align-items-center g-4 g-lg-5">
+                <div class="col-lg-6 text-start">
+                    <span class="hero-tagline d-block mb-2">Welcome to Elite Living</span>
+                    <h1 class="hero-title mb-4">Elevate Your Living With <br><span>Samriddhi Real Estate</span></h1>
+                    <p class="hero-desc mb-4" style="padding-left: 5%;">SALE <span style="padding-left: 5%;">PURCHASE</span> <span style="padding-left: 5%;">RENT/LEASE</span> <span style="padding-left: 5%;">CONSTRUCTION</span> </p>
+
+                    <p class="hero-desc mb-4">Crafting premium structural spaces wrapped in luxurious architectural textures. Discover timeless legacy designs engineered for modern prosperity.</p>
+                    <div class="d-flex flex-row gap-3 justify-content-start">
+                        <a href="#completed-projects" class="btn btn-gold" style="padding: 12px 24px;">Our Projects</a>
+                        <a href="file:///D:/samriddhi/about.html" class="btn btn-outline-gold">About Profile</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image-wrapper">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmluNeHYTvZm9XpUYJTH7TxsU2ERc-SWyyjUlIYH-vFCX9qpwaupTyS5uNidqMiaOhB7wCmx8oEcBacX31ZrFX2DtbopWuRiYwoKc_kYNyUA5Sk5CBWMcv12kiQvtyBt20UfRD3=s1360-w1360-h1020-rw" alt="Samriddhi Luxury Property" data-google-photo="hero" class="hero-main-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="modal fade" id="enquireModal" tabindex="-1" aria-labelledby="enquireModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-custom modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom d-flex justify-content-between align-items-center">
+                    <h5 class="modal-title modal-title-custom" id="enquireModalLabel"><i class="fa-solid fa-address-book me-2"></i> Contact Details</h5>
+                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body modal-body-custom">
+                    <div class="enquire-item">
+                        <div class="enquire-label">Propritor Name</div>
+                        <div class="enquire-value fw-bold text-uppercase">Manoj Kumar Tahilyani</div>
+                    </div>
+                    <div class="enquire-item">
+                        <div class="enquire-label">Contact Number</div>
+                        <div class="enquire-value"><a href="tel:+919829180135"><i class="fa-solid fa-phone me-2" style="color:var(--pop-border-gold);"></i>+91 9829180135</a></div>
+                    </div>
+                    <div class="enquire-item">
+                        <div class="enquire-label">Email Address</div>
+                        <div class="enquire-value"><a href="mailto:tahilyanimanoj@gmail.com"><i class="fa-solid fa-envelope me-2" style="color:var(--pop-border-gold);"></i>tahilyanimanoj@gmail.com</a></div>
+                    </div>
+                    <div class="enquire-item">
+                        <div class="enquire-label">Office Address</div>
+                        <div class="enquire-value" style="line-height: 1.5;"><i class="fa-solid fa-location-dot me-2" style="color:var(--pop-border-gold);"></i>SAMRIDDHI, 302, Keshav Nagar, Vaishali Nagar, Ajmer - 305001</div>
+                        <div class="map-wrapper">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3576.23456789!2d74.638!3d26.449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDI2JzU2LjQiTiA3NMKwMzgnMTYuOCJF!5e0!3m2!1sen!2sin!4v1624700000000!5m2!1sen!2sin" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="completed-projects" class="py-5 bg-black bg-opacity-20">
+        <div class="container">
+            <h2 class="section-title text-center text-lg-start">Completed Projects</h2>
+            
+            <div class="horizontal-slider px-2">
+                 <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge">ONGOING</span>
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl63fI8RkUpFvIHMd2XuEAemmm0cbEaOnW95qE8tIcPz1qN02X6LB2dCPP0EMRTmaiZRJyMmdS3jyK73qGHCna3J3jzsEAT6W_Xn0IUW8baRmragxC7eXCSi4BtJEx7n-uMnDXtzjEas7Aa=s1360-w1360-h1020-rw" alt="ONGOING" data-google-photo="project-1">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">KEKRI PREMIUM PROJECT <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">JOSHI COLONY,AJMER ROAD,KEKRI,AJMER</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">5 BHK Luxury Layouts</div>
+
+                         <div class="spec-label">Completed Yr</div>
+                        <div class="spec-value">ONGOING[expected complition March 2027]</div>
+                    </div>
+                </div>
+
+
+
+
+               <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge">Delivered</span>
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWknH_6ZhnI73FhBYCYtCGHth2oMWwyGGdEvve-j1sLe275Ozom-WJnXg1bFZRmoVH2j_WqD_vaxlPHOnFWfk0ZuQS0YG8NwPFL-1_mrAJKpVrVnc_h7GstogY-pTyOI0MfBqTA1NVit1NeI=s1360-w1360-h1020-rw" alt="Project 2" data-google-photo="project-6" data-google-photo="project-2">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">DELUXE HOUSE <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">GORI NAGAR,AJMER</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">2 BHK Modern Layouts</div>
+
+                        <div class="spec-label">Completed Yr</div>
+                        <div class="spec-value">2025</div>
+                    </div>
+                </div>
+
+
+
+                 <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge">Delivered</span>
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkj_pIysGImZDjhw_gTWvAM8M5g18Fwn0yDORsl3tlrb4vWtrw3TwYiULEWUsT0_LPOM_GFubxnHwYhTYW_sMu4Ft7jZoqZPAiw_VHJkaGrfWRxncM0jp09U2827n8zoWJyzzCYMcUVjspU=s1360-w1360-h1020-rw" alt="Project 5" data-google-photo="project-3">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">PANCHSHEEL CORNER & NON-CORNER <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">PANCHSHEEL NAGAR, B-BLOCK,AJMER</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">3 BHK Premium House </div>
+
+                         <div class="spec-label">Completed Yr</div>
+                        <div class="spec-value">2023</div>
+                    </div>
+                </div>
+
+
+
+
+                 <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge">Delivered</span>
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkGQXu6dSRqYaL5RQ4uM8c3a8_X6lEuYidtD7I_R7SFTwoCDZQaFBFzP3VhonhTzvk3BSYNr9B2x5KLCVc_oS2Kn2SNaAlquuX4W80w03x7UBxqCAb9ratR5kix_ARHiTSsnEU2jexSpQA=s1360-w1360-h1020-rw"  alt="Project 4" data-google-photo="project-4">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">TRIPLEX DELUXE HOUSE <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">GORI NAGAR,AJMER</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">3 BHK </div>
+
+                         <div class="spec-label">Completed Yr</div>
+                        <div class="spec-value">2022</div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge">Delivered</span>
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlh_HF6sS22WuvoO_QRpMx9aEr2yCCTt810iU1xyRyW5kOaZSb4D-TDOG3eWTM_u-drv1IcQXXOKHm19xUvLq7fUy7mX0KueGeYKMI3bmMD-U9Sm-2O7eTbVgyho8_ybmrUlXfO9yhxmMmw=s1360-w1360-h1020-rw" alt="Project 3" data-google-photo="project-5">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">JEVANDEPP PREMIUM PROJECT <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">JEVANDEEP COLONY,VAISHALI NAGAR,AJMER</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">5 BHK Luxury Layouts</div>
+
+                         <div class="spec-label">Completed Yr</div>
+                        <div class="spec-value">2021</div>
+                    </div>
+                </div>
+
+
+
+
+                 <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge">Delivered</span>
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm2r85n5-_-AheCizX_bDNd14H6QxtnM0z2HqgrvpxoPkSzmIbo2zl01xmYlc-ATPNSNs75_K9o925un9mvymabNaqypHQ36udj66Nv3buz6cqwJYBdkEAidIwzsFEAs9meUtdZ6TMA1xM=s1360-w1360-h1020-rw" alt="Project 2">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">BALDEV NAGAR SOLO HOUSE <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">BALDEV NAGAR,COLONY II LANE 2,AJMER</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">3 BHK Luxury Residences</div>
+
+                         <div class="spec-label">Completed Yr</div>
+                        <div class="spec-value">2020</div>
+                    </div>
+                </div>
+
+
+                  <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge">Delivered</span>
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl0ma744lPx-7UlgHmbxQCCKEikWhleGqnHEhD84IoOpJJsVJSYSUDxq40oX-qYIHf5oLp-x1-FLnLHjbAkjMyRU1z27DOlxxfUIJpdF8OANHgkJtF9mtTvnWlrpzDFn-7Vwle9ocU-CSM1=s1360-w1360-h1020-rw" alt="Project 1" data-google-photo="project-7">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5"> BALDEV NAGAR DUPLEX <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">BALDEV NAGAR,COLONY II,AJMER</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">3 BHK</div>
+
+                         <div class="spec-label">Completed Yr</div>
+                        <div class="spec-value">2019</div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    
+
+
+ <!---   <section id="rent-properties" class="py-5 bg-black bg-opacity-40" style="border-top: 1px solid rgba(214, 175, 55, 0.05);">
+        <div class="container">
+            <h2 class="section-title text-center text-lg-start">Premium Properties For Rent</h2>
+            
+            <div class="horizontal-slider px-2">
+                
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge rent-badge">Available</span>
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=80" alt="Rent Property 1">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">Skyview Executive Suite <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Monthly Rental</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">₹ 65,000 / month</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">Fully Furnished 2 BHK</div>
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value">Financial District, Tower B</div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge rent-badge">Available</span>
+                        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=80" alt="Rent Property 2">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">Urban Crest Studio <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Monthly Rental</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">₹ 32,000 / month</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">Luxury Smart Studio</div>
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value">Metro Hub Boulevard</div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge rent-badge">Available</span>
+                        <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=600&q=80" alt="Rent Property 3">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">Oakwood Manor Villa <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Monthly Rental</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">₹ 1,80,000 / month</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">4 BHK Courtyard Villa</div>
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value">Woodlands Green Phase I</div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge rent-badge">Available</span>
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80" alt="Rent Property 4">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">The Grand Penthouse <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Monthly Rental</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">₹ 2,50,000 / month</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">5 BHK Triplex Penthouse</div>
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value">Skyline Heights Tower</div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge rent-badge">Available</span>
+                        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=600&q=80" alt="Rent Property 5">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">Aura Terraces Apartment <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Monthly Rental</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">₹ 85,000 / month</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">Premium 3 BHK Layout</div>
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value">Tech Park Outer Boulevard</div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge rent-badge">Available</span>
+                        <img src="https://images.unsplash.com/photo-1560185127-6a2806647f81?auto=format&fit=crop&w=600&q=80" alt="Rent Property 6">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">Lumina Garden Duplex <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Monthly Rental</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">₹ 1,10,000 / month</div>
+                        
+                        <div class="spec-label">Typology</div>
+                        <div class="spec-value">3 BHK Garden-Facing Duplex</div>
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value">Sector 12, Green Meadow</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="raw-land" class="py-5 bg-black bg-opacity-20" style="border-top: 1px solid rgba(214, 175, 55, 0.05);">
+        <div class="container">
+            <h2 class="section-title text-center text-lg-start">Raw Land Opportunities</h2>
+            
+            <div class="horizontal-slider px-2">
+                
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge land-badge">For Sale</span>
+                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80" alt="Raw Land 1">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">Greenfield Commercial Plot <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Investment Valuation</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">₹ 2.45 Crores</div>
+                        
+                        <div class="spec-label">Zoning / Area</div>
+                        <div class="spec-value">Commercial Use / 12,000 Sq.Ft</div>
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value">National Highway Frontage, Zone 5</div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge land-badge">For Sale</span>
+                        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80" alt="Raw Land 2">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">Vanguard Industrial Plot <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Investment Valuation</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">₹ 4.80 Crores</div>
+                        
+                        <div class="spec-label">Zoning / Area</div>
+                        <div class="spec-value">Heavy Industrial / 2.5 Acres</div>
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value">Logistics Corridor, Phase IV</div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge land-badge">For Sale</span>
+                        <img src="https://images.unsplash.com/photo-1444653389962-8149286c578a?auto=format&fit=crop&w=600&q=80" alt="Raw Land 3">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">Aura Residential Acres <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Investment Valuation</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">₹ 1.15 Crores</div>
+                        
+                        <div class="spec-label">Zoning / Area</div>
+                        <div class="spec-value">Residential Plotted / 8,500 Sq.Ft</div>
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value">Smart Township Foothills</div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge land-badge">For Sale</span>
+                        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80" alt="Raw Land 4">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">Summit Ridge Farmland <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Investment Valuation</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">₹ 95 Lakhs</div>
+                        
+                        <div class="spec-label">Zoning / Area</div>
+                        <div class="spec-value">Agricultural / 1.2 Acres</div>
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value">Eco-Tourism Valley Ring</div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge land-badge">For Sale</span>
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80" alt="Raw Land 5">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">Premium Institutional Land <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Investment Valuation</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">₹ 6.20 Crores</div>
+                        
+                        <div class="spec-label">Zoning / Area</div>
+                        <div class="spec-value">Institutional Plot / 45,000 Sq.Ft</div>
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value">Education Knowledge City Hub</div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-img-container">
+                        <span class="project-badge land-badge">For Sale</span>
+                        <img src="https://images.unsplash.com/photo-1472214222541-d510753a4707?auto=format&fit=crop&w=600&q=80" alt="Raw Land 6">
+                    </div>
+                    <div class="project-body">
+                        <a href="#" class="project-title fs-5">Orchard Crest Agro Plots <i class="fa-solid fa-chevron-right ms-2 fs-6" style="color: var(--gold-primary);"></i></a>
+                        <hr class="my-2 opacity-25" style="color: var(--text-muted);">
+                        
+                        <div class="spec-label">Investment Valuation</div>
+                        <div class="spec-value fw-bold" style="color: var(--gold-primary);">₹ 75 Lakhs</div>
+                        
+                        <div class="spec-label">Zoning / Area</div>
+                        <div class="spec-value">Managed Farm / 22,000 Sq.Ft</div>
+                        
+                        <div class="spec-label">Location</div>
+                        <div class="spec-value">Riverside Farms Boundary</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>-->
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        /*
+         * Dynamic Google Business Profile / Google Places photos
+         * -----------------------------------------------------
+         * The frontend never contains the Google API key.
+         * Your hosting agent should create:
+         *
+         *     GET /api/business-photos
+         *
+         * The endpoint should return:
+         * {
+         *   "photos": [
+         *      {"slot":"logo","url":"..."},
+         *      {"slot":"hero","url":"..."},
+         *      {"slot":"project-1","url":"..."},
+         *      ...
+         *   ]
+         * }
+         *
+         * If the API is unavailable, the existing image URLs remain as
+         * fallbacks, so the page does not become blank.
+         */
+
+        (async function loadDynamicBusinessPhotos() {
+            const images = document.querySelectorAll('img[data-google-photo]');
+            if (!images.length) return;
+
+            try {
+                const response = await fetch('/api/business-photos', {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' },
+                    cache: 'no-store'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Photo API returned HTTP ' + response.status);
+                }
+
+                const data = await response.json();
+                if (!data || !Array.isArray(data.photos)) {
+                    throw new Error('Invalid photo API response');
+                }
+
+                const photosBySlot = {};
+                data.photos.forEach(photo => {
+                    if (photo && photo.slot && photo.url) {
+                        photosBySlot[photo.slot] = photo.url;
+                    }
+                });
+
+                images.forEach(img => {
+                    const slot = img.dataset.googlePhoto;
+                    const dynamicUrl = photosBySlot[slot];
+
+                    if (dynamicUrl) {
+                        const preload = new Image();
+
+                        preload.onload = function () {
+                            img.src = dynamicUrl;
+                        };
+
+                        preload.onerror = function () {
+                            console.warn('Dynamic photo failed for:', slot);
+                        };
+
+                        preload.src = dynamicUrl;
+                    }
+                });
+            } catch (error) {
+                console.warn(
+                    'Dynamic Google photos unavailable. Keeping fallback images.',
+                    error
+                );
+            }
+        })();
+    </script>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            if (window.scrollY > 30) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+
+    <footer>
+        <div class="container">
+            <div class="enquire-label">Email Address
+                        <div class="enquire-value"><a style="text-decoration:none; color: white;" href="mailto:tahilyanimanoj@gmail.com"><i class="fa-solid fa-envelope me-2" style="color:var(--pop-border-gold);"></i>tahilyanimanoj@gmail.com</a></div></div>
+        </div>
+    </footer>
+</body>
+</html>
+

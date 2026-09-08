@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Samriddhi Real Estate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        /* --- Color Palette & Theme Variables --- */
+        :root {
+            --light-bg: black;           
+            --surface-card: black;    
+            --text-dark: goldenrod;          
+            --text-muted-dark: gold;    
+            --gold-accent: #c5a028;        
+            --bezier-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        body {
+            background-color: black;
+            color: goldenrod;
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            padding-top: 120px;
+            line-height: 1.8;
+        }
+
+        /* --- Navigation Bar --- */
+        .navbar-custom {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+            padding: 14px 0;
+            background-color: black;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(197, 160, 40, 0.15);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-brand-custom img {
+            width: auto;
+            height: 60px;
+            object-fit: contain;
+        }
+
+          .nav-actions {
+            flex-shrink: 0;
+        }
+
+        .btn-gold {
+            background-color: goldenrod;
+            color: black;
+            font-weight: 600;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border: 1px solid var(--gold-primary);
+            border-radius: 0px; 
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.25s var(--bezier-fast);
+            cursor: pointer;
+        }
+
+        .btn-gold:hover {
+            background-color: transparent;
+            color: goldenrod;
+            box-shadow: 0 6px 15px rgba(214, 175, 55, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .btn-return {
+            color: goldenrod;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+        .btn-return:hover {
+            color: var(--gold-accent);
+        }
+
+        /* --- Layout & Panels --- */
+        .page-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .page-title {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dark);
+            font-size: 2.5rem;
+        }
+        .page-title span {
+            color: var(--gold-accent);
+        }
+
+        .about-card-panel {
+            background-color: var(--surface-card);
+            border: 1px solid rgba(197, 160, 40, 0.12);
+            border-radius: 16px;
+            
+            box-shadow: 0 10px 30px rgba(43, 37, 33, 0.03);
+            margin-bottom: 5px;
+        }
+
+        .section-subtitle-gold {
+            color: var(--gold-accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .editorial-paragraph {
+            color: var(--text-muted-dark);
+            font-size: 1.02rem;
+            margin-bottom: 24px;
+            text-align: justify;
+        }
+
+        .blockquote-luxury {
+            border-left: 4px solid var(--gold-accent);
+            padding-left: 20px;
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 1.15rem;
+            margin: 35px 0;
+            font-weight: 500;
+        }
+
+        /* --- Bulleted List Styling --- */
+        .luxury-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 25px;
+        }
+        .luxury-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            color: var(--text-muted-dark);
+            font-size: 1.02rem;
+        }
+        .luxury-list li::before {
+            content: "\f105";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            color: var(--gold-accent);
+            font-size: 1.1rem;
+        }
+        .luxury-list strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Metrics Array */
+        .stat-grid-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .stat-item-box {
+            background-color: rgba(197, 160, 40, 0.03);
+            border: 1px solid rgba(197, 160, 40, 0.15);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gold-accent);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        
+          .enquire-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: var(--pop-border-gold);
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="container nav-container">
+            <a class="navbar-brand-custom" href="file:///D:/samriddhi/samriddhi%20real%20estate.html">
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlEr0fyQK5sTwQFWkcZkYhhnJ1SesC66zJgeTBiLHl5EhuEmYoONDH0hhYpU0jnnHGleqKL3yP7nTJDyVJt7QW1DxtNW47L6U8wmPwmEz8lWO5Uwy53NFSQgcFl4dT-WVBq4_pmyHlXoXcr=s1360-w1360-h1020-rw" alt="Logo" data-google-photo="logo">
+            </a>
+             <div class="nav-actions">
+               <a style="text-decoration:none;" href="file:///D:/samriddhi/samriddhi%20real%20estate.html"> <button class="btn btn-gold" >Go back Home</button></a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5" style="max-width: 900px;">
+        
+        <header class="page-header">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/023/649/106/small/about-us-button-web-banner-templates-illustration-free-vector.jpg" class="page-title">
+        </header>
+
+        <section class="about-card-panel">
+            <h2 class="section-subtitle-gold"><i class="fa-solid fa-landmark"></i> Who We Are</h2>
+            <p class="editorial-paragraph">
+                Samriddhi Real Estate is working as a agricultural, residential, comercial property broker and developer builder  in Ajmer & Pushkar,Rajasthan. We specialize in high-quality property solutions, offering Raw  building designs and premium spaces for our clients. We do clean, top-tier, and honest work. If you want to build a premium house, find a luxury place on rent, or sell and buy high-value land, we provide professional services without any confusion or complex paperwork.
+            </p>
+            
+            <ul class="luxury-list">
+                <li><strong>Premium Construction:</strong> We build luxury, high-end houses and beautiful duplexes using premium, top-grade materials.</li>
+                <li><strong>Luxury Rent Services:</strong> We help clients find elite residences, premium apartments, or high-class shops to live and work on rent.</li>
+                <li><strong>Expert Buy & Sell Consultancy:</strong> We give professional advice and clear all legal checks when you want to buy or sell prime land or luxury houses.</li>
+                <li><strong>Trusted Brokerage:</strong> We manage professional property deals to connect buyers and sellers directly, ensuring smooth and fair transactions.</li>
+            </ul>
+
+            <div class="blockquote-luxury">
+                "We focus entirely on premium property solutions. Our team helps you build, rent, buy, or sell luxury spaces with total trust and high quality."
+            </div>
+        </section>
+
+        <section class="about-card-panel">
+            <h2 class="section-subtitle-gold"><i class="fa-solid fa-eye"></i> Our Premium Vision</h2>
+            <p class="editorial-paragraph">
+                Our main goal is to deliver top-tier real estate benchmarks in Ajmer. We want to make sure that our buyers and investors get absolute security and maximum value for their capital. We believe in building excellent properties and strong relationships so that our clients can trust our name for generations.
+            </p>
+            
+            <ul class="luxury-list">
+                <li><strong>Fair Market Value:</strong> To always provide accurate and honest market pricing, maintaining full clarity for both buyers and sellers.</li>
+                <li><strong>Total Paper Safety:</strong> To verify every single legal document and map before presenting properties to our clients.</li>
+                <li><strong>Top-Tier Masterplans:</strong> To design and build signature modern layouts that remain strong and look premium for decades.</li>
+            </ul>
+        </section>
+
+        <div class="blockquote-luxury">
+                OUR CERTIFICATION:<br><br>
+                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%; gap: 2%;">
+                    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnwC2K0GdfykbxkkuHIhdI-q4rAAP4_o1cx5BngjF7a1LEv1c1ozZP1idQEHiQRVM8p__n9jltxhE6iV7gKisPC3yy58Bp9AqtZgDZ4fIKkJoqUIQ8sJqwTaHoFb7kgcXtD5Dzry3iOaish=s1360-w1360-h1020-rw" style="width: 23%; height: auto; object-fit: contain;" data-google-photo="certificate-1"> 
+                    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkU9mTa2h2preO2--KpsIl0eYzBLYR2xc3NFinmGTeNyzhsOqsyA7t7jw-olcjZcfxTXStcYAVGKTe8ov7web2zlzmuFDAMzpOFM-VftAURUh8GK3sG5jkw-ggsh1AVbr-dayB1sswwMag=s1360-w1360-h1020-rw" style="width: 23%; height: auto; object-fit: contain;" data-google-photo="certificate-2"> 
+                    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmqndEZn2Kmv_yiUsWDJqas8OJGs9GHtUhpMP8CrTWlhM0vlbC6TZFwVFb5mxo3zVc3AVvzOqxQbhSg2S05mVwn23fMlMO2Xaya-VUUAIRawJSc1TwTGVcDmz6cd9d37J5vT3RRqa5Gf5g=s1360-w1360-h1020-rw" style="width: 18%; height: auto; object-fit: contain;" data-google-photo="certificate-3"> 
+                    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk-eoEcRQCNXBi_ZRzUVTPY1Tz_nr4f1MAoMEb9umS3oqi8jjbJDlQZ6Oql_H_HPdRoB5xwHa772nenHVP9xIcBV_XfWYcgQOj-sxtDl20F8kcwmF1a5WrZmFq9RVIQrTuM_Pcw56Di1Js=s1360-w1360-h1020-rw" style="width: 23%; height: auto; object-fit: contain;" data-google-photo="certificate-4"> 
+                </div>
+        </div>
+
+        <section class="about-card-panel">
+            <h2 class="section-subtitle-gold"><i class="fa-solid fa-compass-drafting"></i> How We Work</h2>
+            <p class="editorial-paragraph">
+                We work in a very professional and direct way. When you connect with us, we listen to your specific requirements and share the highest quality options available. We do not use confusing terms. We talk in simple, clear language so you can understand every step of your property deal.
+            </p>
+
+            <ul class="luxury-list">
+                <li><strong>Rigorous Verification:</strong> We double-check all government land records to guarantee complete safety and zero legal issues.</li>
+                <li><strong>Transparent Meetings:</strong> We host direct face-to-face meetings between owners and buyers to maintain complete transparency.</li>
+                <li><strong>On-Site Supervision:</strong> Our supervisors manage the construction sites constantly to keep building standards premium.</li>
+            </ul>
+            
+            <div class="stat-grid-row">
+                <div class="stat-item-box">
+                    <span class="stat-number">16+</span>
+                    <span class="stat-label">Years of Work</span>
+                </div>
+                <div class="stat-item-box">
+                    <span class="stat-number">40+</span>
+                    <span class="stat-label">Premium Projects</span>
+                </div>
+                <div class="stat-item-box">
+                   <a style="text-decoration: none;" href="https://www.google.com/search?sca_esv=7ce971c6d4eb874c&sxsrf=APpeQnuagVFNIEEUCkHgRV9BhfRa1_5T4g:1783167595614&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_-gWH1Z50GzAQJ2P-DthqrSEZ0y3P69qL-keqtaLrWqZPBVgnfmxTu5JlH6D7EaffHEFT27jwVI49Wlk9A7stz1Hs7clrkpeQ-X4-bjJ5ZvEBp_NaTiKp4RlVOBP6p3cgXybonmv0FOmdVsId8C0__w_cC4NGlN3eeVqw8SdblEmBS_G8Ki1Ji6AbGiry3tJJxq0pD-JC_0HHyTG_rHry-ELe6ts&q=SAMRIDDHI+REAL+ESTATE+-Real+Estate+Agent+%7CConsultant+%7CProperty+Broker+%7CAgriculture+Land+in+Pushkar+Ajmer+Reviews&sa=X&ved=2ahUKEwjE5fH4gLmVAxVUSGwGHc06NvIQ0bkNegQIMRAF&biw=1280&bih=585&dpr=1.5"> <span class="stat-number">2K+</span></a>
+                    <span class="stat-label">Happy Clients</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="enquire-label">Email Address
+                        <div class="enquire-value"><a style="text-decoration:none; color: white;" href="mailto:tahilyanimanoj@gmail.com"><i class="fa-solid fa-envelope me-2" style="color:goldenrod;"></i>tahilyanimanoj@gmail.com</a></div></div>
+        </div>
+    </footer>
+
+
+    <!-- Dynamic Google Business Profile photo loader -->
+    <script>
+    (async function loadDynamicGooglePhotos() {
+        const elements = document.querySelectorAll('[data-google-photo]');
+        if (!elements.length) return;
+
+        try {
+            const response = await fetch('/api/business-photos', {
+                headers: { 'Accept': 'application/json' },
+                cache: 'no-store'
+            });
+
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+
+            const data = await response.json();
+            if (!data || !Array.isArray(data.photos)) {
+                throw new Error('Invalid photo API response');
+            }
+
+            const photosBySlot = {};
+            data.photos.forEach(photo => {
+                if (photo && photo.slot && photo.url) {
+                    photosBySlot[photo.slot] = photo.url;
+                }
+            });
+
+            elements.forEach(img => {
+                const url = photosBySlot[img.dataset.googlePhoto];
+                if (!url) return;
+
+                const preload = new Image();
+                preload.onload = () => { img.src = url; };
+                preload.src = url;
+            });
+        } catch (error) {
+            // Existing Google URLs remain as fallback.
+            console.warn('Dynamic Google photos unavailable:', error);
+        }
+    })();
+    </script>
+
+</body>
+</html>
